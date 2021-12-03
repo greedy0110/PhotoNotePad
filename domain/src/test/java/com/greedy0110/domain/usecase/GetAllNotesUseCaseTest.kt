@@ -5,6 +5,7 @@ import com.greedy0110.domain.MemoryNoteStore
 import com.greedy0110.domain.Note
 import com.greedy0110.domain.NoteStore
 import com.greedy0110.domain.SampleNote
+import com.greedy0110.domain.sorting.SortingNoteByColor
 import com.greedy0110.domain.sorting.SortingNoteByCreatedAt
 import com.greedy0110.domain.sorting.SortingNoteByDate
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -66,5 +67,29 @@ class GetAllNotesUseCaseTest {
                 }
             }
         )
+    }
+
+    @Test
+    fun shouldOrderByColor() = runTest {
+        val base = SampleNote.all[0]
+        val createUseCase = CreateSingleNoteUseCase(noteStore)
+        createUseCase.execute(base.copy(color = null))
+        createUseCase.execute(base.copy(color = null))
+        createUseCase.execute(base.copy(color = null))
+        createUseCase.execute(base.copy(color = 1))
+        createUseCase.execute(base.copy(color = 2))
+        createUseCase.execute(base.copy(color = 1))
+        createUseCase.execute(base.copy(color = 3))
+        createUseCase.execute(base.copy(color = 1))
+        createUseCase.execute(base.copy(color = 2))
+        val colorPriorities = listOf(2, 3, 1)
+
+        val getAllUseCas = GetAllNotesUseCase(noteStore)
+        val howToSort = SortingNoteByColor(colorPriorities)
+        val result = getAllUseCas.execute(howToSort)
+
+        assertThat(result).hasSize(9)
+        assertThat(result.map { it.color })
+            .isEqualTo(listOf(2, 2, 3, 1, 1, 1, null, null, null))
     }
 }

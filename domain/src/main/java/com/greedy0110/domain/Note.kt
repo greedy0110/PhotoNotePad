@@ -6,14 +6,9 @@ data class Note(
     val id: Int,
     val title: String,
     val content: String,
-    val color: Color,
     val date: LocalDate?,
+    val color: Int?,
     val isPin: Boolean,
     val images: List<String>,
     val createdAt: Long
-) {
-    data class Color(
-        val id: Int,
-        val code: Int
-    )
-}
+)

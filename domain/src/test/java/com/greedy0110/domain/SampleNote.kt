@@ -11,7 +11,7 @@ object SampleNote {
             content = "hello photo note pads $seed",
             //TODO: date could be null.
             date = LocalDate.of(2021, 12, 3),
-            color = Note.Color(seed, seed % 0xffffff),
+            color = null,
             isPin = false,
             images = emptyList(),
             createdAt = 999 // this should be set by other layer.
