@@ -9,6 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import java.time.LocalDate
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class GetAllNotesUseCaseTest {
@@ -16,8 +17,9 @@ class GetAllNotesUseCaseTest {
     lateinit var noteStore: NoteStore
 
     @Before
-    fun setup() {
+    fun setup() = runTest {
         noteStore = MemoryNoteStore()
+
     }
 
     @Test
@@ -34,6 +36,23 @@ class GetAllNotesUseCaseTest {
         assertThat(result).hasSize(3)
         assertThat(result).isInOrder(
             Comparator<Note> { note1, note2 -> note2.createdAt.compareTo(note1.createdAt) }
+        )
+    }
+
+    @Test
+    fun shouldDescendingOrderByItsDate() = runTest {
+        val base = SampleNote.all[0]
+        val createUseCase = CreateSingleNoteUseCase(noteStore)
+        createUseCase.execute(base.copy(date = LocalDate.of(2020, 12, 3)))
+        createUseCase.execute(base.copy(date = LocalDate.of(2021, 1, 3)))
+        createUseCase.execute(base.copy(date = LocalDate.of(2020, 11, 3)))
+
+        val getAllUseCase = GetAllNotesUseCase(noteStore)
+        val result = getAllUseCase.execute()
+
+        assertThat(result).hasSize(3)
+        assertThat(result).isInOrder(
+            Comparator<Note> { note1, note2 -> note2.date.compareTo(note1.date) }
         )
     }
 }

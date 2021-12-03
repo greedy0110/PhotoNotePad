@@ -9,6 +9,6 @@ class GetAllNotesUseCase(
 
     suspend fun execute(): List<Note> {
         val notes = noteStore.getAll()
-        return notes.sortedByDescending { it.createdAt }
+        return notes.sortedByDescending { it.date }
     }
 }

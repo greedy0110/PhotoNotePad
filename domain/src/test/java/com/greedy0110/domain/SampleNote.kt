@@ -9,7 +9,8 @@ object SampleNote {
             id = seed, // this should be set by other layer.
             title = "very $seed note",
             content = "hello photo note pads $seed",
-            date = LocalDate.of(2021, 12, 3).plusDays(seed.toLong()),
+            //TODO: date could be null.
+            date = LocalDate.of(2021, 12, 3),
             color = Note.Color(seed, seed % 0xffffff),
             isPin = false,
             images = emptyList(),
