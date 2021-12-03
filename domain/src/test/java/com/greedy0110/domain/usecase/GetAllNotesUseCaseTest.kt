@@ -1,6 +1,8 @@
 package com.greedy0110.domain.usecase
 
 import com.google.common.truth.Truth.assertThat
+import com.greedy0110.domain.ColorStore
+import com.greedy0110.domain.MemoryColorStore
 import com.greedy0110.domain.MemoryNoteStore
 import com.greedy0110.domain.Note
 import com.greedy0110.domain.NoteStore
@@ -18,11 +20,12 @@ import java.time.LocalDate
 class GetAllNotesUseCaseTest {
 
     lateinit var noteStore: NoteStore
+    lateinit var colorStore: ColorStore
 
     @Before
     fun setup() = runTest {
         noteStore = MemoryNoteStore()
-
+        colorStore = MemoryColorStore()
     }
 
     @Test
@@ -82,10 +85,9 @@ class GetAllNotesUseCaseTest {
         createUseCase.execute(base.copy(color = 3))
         createUseCase.execute(base.copy(color = 1))
         createUseCase.execute(base.copy(color = 2))
-        val colorPriorities = listOf(2, 3, 1)
 
         val getAllUseCas = GetAllNotesUseCase(noteStore)
-        val howToSort = SortingNoteByColor(colorPriorities)
+        val howToSort = SortingNoteByColor(colorStore)
         val result = getAllUseCas.execute(howToSort)
 
         assertThat(result).hasSize(9)
