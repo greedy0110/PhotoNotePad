@@ -9,3 +9,4 @@ dependencyResolutionManagement {
 rootProject.name = "PhotoNotePad"
 include ':app'
 include ':domain'
+include ':local'
