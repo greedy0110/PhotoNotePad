@@ -6,8 +6,8 @@ data class Note(
     val id: Int,
     val title: String,
     val content: String,
-    val date: LocalDate,
     val color: Color,
+    val date: LocalDate?,
     val isPin: Boolean,
     val images: List<String>,
     val createdAt: Long

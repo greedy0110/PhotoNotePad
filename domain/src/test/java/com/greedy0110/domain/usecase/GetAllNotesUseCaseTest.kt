@@ -49,14 +49,22 @@ class GetAllNotesUseCaseTest {
         createUseCase.execute(base.copy(date = LocalDate.of(2020, 12, 3)))
         createUseCase.execute(base.copy(date = LocalDate.of(2021, 1, 3)))
         createUseCase.execute(base.copy(date = LocalDate.of(2020, 11, 3)))
+        createUseCase.execute(base.copy(date = null))
 
         val getAllUseCase = GetAllNotesUseCase(noteStore)
         val howToSort = SortingNoteByDate()
         val result = getAllUseCase.execute(howToSort)
 
-        assertThat(result).hasSize(3)
+        assertThat(result).hasSize(4)
         assertThat(result).isInOrder(
-            Comparator<Note> { note1, note2 -> note2.date.compareTo(note1.date) }
+            Comparator<Note> { note1, note2 ->
+                when {
+                    note2.date == null && note1.date == null -> 0
+                    note1.date == null -> 1
+                    note2.date == null -> -1
+                    else -> note2!!.date!!.compareTo(note1.date)
+                }
+            }
         )
     }
 }
