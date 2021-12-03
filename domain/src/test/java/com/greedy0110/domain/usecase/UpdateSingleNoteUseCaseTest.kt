@@ -1,0 +1,36 @@
+package com.greedy0110.domain.usecase
+
+import com.google.common.truth.Truth.assertThat
+import com.greedy0110.domain.MemoryNoteStore
+import com.greedy0110.domain.NoteStore
+import com.greedy0110.domain.SampleNote
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
+import org.junit.Before
+import org.junit.Test
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class UpdateSingleNoteUseCaseTest {
+
+    lateinit var noteStore: NoteStore
+
+    @Before
+    fun setup() {
+        noteStore = MemoryNoteStore()
+    }
+
+    @Test
+    fun shouldUpdateANote() = runTest {
+        val createUseCase = CreateSingleNoteUseCase(noteStore)
+        val sample1 = SampleNote.all[0]
+        createUseCase.execute(sample1)
+
+        val updateUseCase = UpdateSingleNoteUseCase(noteStore)
+        var savedNote = noteStore.getAll()[0]
+        updateUseCase.execute(savedNote.copy(title = "update successfully."))
+
+        savedNote = noteStore.getAll()[0]
+        assertThat(savedNote.copy(id = 9999))
+            .isEqualTo(sample1.copy(id = 9999, title = "update successfully."))
+    }
+}
