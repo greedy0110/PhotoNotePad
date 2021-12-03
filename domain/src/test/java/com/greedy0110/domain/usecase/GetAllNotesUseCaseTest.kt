@@ -5,6 +5,8 @@ import com.greedy0110.domain.MemoryNoteStore
 import com.greedy0110.domain.Note
 import com.greedy0110.domain.NoteStore
 import com.greedy0110.domain.SampleNote
+import com.greedy0110.domain.sorting.SortingNoteByCreatedAt
+import com.greedy0110.domain.sorting.SortingNoteByDate
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -31,7 +33,8 @@ class GetAllNotesUseCaseTest {
         createUseCase.execute(sample3)
 
         val getAllUseCase = GetAllNotesUseCase(noteStore)
-        val result = getAllUseCase.execute()
+        val howToSort = SortingNoteByCreatedAt()
+        val result = getAllUseCase.execute(howToSort)
 
         assertThat(result).hasSize(3)
         assertThat(result).isInOrder(
@@ -48,7 +51,8 @@ class GetAllNotesUseCaseTest {
         createUseCase.execute(base.copy(date = LocalDate.of(2020, 11, 3)))
 
         val getAllUseCase = GetAllNotesUseCase(noteStore)
-        val result = getAllUseCase.execute()
+        val howToSort = SortingNoteByDate()
+        val result = getAllUseCase.execute(howToSort)
 
         assertThat(result).hasSize(3)
         assertThat(result).isInOrder(
