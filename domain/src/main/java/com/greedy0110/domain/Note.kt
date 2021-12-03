@@ -9,7 +9,8 @@ data class Note(
     val date: LocalDate,
     val color: Color,
     val isPin: Boolean,
-    val images: List<String>
+    val images: List<String>,
+    val createdAt: Long
 ) {
     data class Color(
         val id: Int,

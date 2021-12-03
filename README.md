@@ -12,7 +12,7 @@ Easy to write, read and organize notes with photo(s).
     
 - Easy to write a note.
 - Provide the same interface to modify a note as write the note.
-- Some handy filter options are given.
+- Some handy sort options are given.
   - order by its creation time. (according or descending)
   - order by its colors.
     - colors should have their own priorities.
