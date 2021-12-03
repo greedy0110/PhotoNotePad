@@ -21,6 +21,6 @@ class CreateSingleNoteUseCaseTest {
         val result = noteStore.getAll()
         assertThat(result).hasSize(1)
         // "id property can be changed by implementation of NoteStore.
-        assertThat(result[0].copy(id = 9999)).isEqualTo(sampleNote1.copy(id = 9999))
+        assertThat(result[0].contentEqual(sampleNote1)).isTrue()
     }
 }

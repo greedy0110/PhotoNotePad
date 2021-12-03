@@ -11,4 +11,13 @@ data class Note(
     val isPin: Boolean,
     val images: List<String>,
     val createdAt: Long
-)
+) {
+
+    fun contentEqual(other: Note): Boolean {
+        return title == other.title &&
+                content == other.content &&
+                date == other.date &&
+                color == other.color &&
+                images == other.images
+    }
+}

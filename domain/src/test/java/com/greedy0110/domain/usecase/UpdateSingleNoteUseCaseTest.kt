@@ -33,8 +33,7 @@ class UpdateSingleNoteUseCaseTest {
         updateUseCase.execute(savedNote.copy(title = "update successfully."))
 
         savedNote = noteStore.getAll()[0]
-        assertThat(savedNote.copy(id = 9999))
-            .isEqualTo(sample1.copy(id = 9999, title = "update successfully."))
+        assertThat(savedNote.contentEqual(sample1.copy(title = "update successfully.")))
     }
 
     @Test
