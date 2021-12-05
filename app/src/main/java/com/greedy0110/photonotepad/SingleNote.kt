@@ -16,6 +16,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.greedy0110.photonotepad.ui.theme.PhotoNotePadTheme
+import com.greedy0110.photonotepad.ui.theme.StickerColors
 
 @Composable
 fun SingleNote(
@@ -59,7 +60,7 @@ fun PreviewSingleNote() {
             modifier = Modifier.padding(8.dp),
             title = "Very First Note.",
             content = "This is a piece of notes.".repeat(10),
-            color = Color.Red
+            color = StickerColors.first()
         )
     }
 }

@@ -1,6 +1,6 @@
 package com.greedy0110.domain
 
 interface ColorStore {
-    suspend fun getOrder(): List<Int>
-    suspend fun saveOrder(newOrder: List<Int>)
+    suspend fun getOrder(): List<ULong>
+    suspend fun saveOrder(newOrder: List<ULong>)
 }

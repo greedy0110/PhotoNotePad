@@ -6,7 +6,7 @@ class SetColorOrderUseCase(
     private val colorStore: ColorStore
 ) {
 
-    suspend fun execute(newOrder: List<Int>) {
+    suspend fun execute(newOrder: List<ULong>) {
         colorStore.saveOrder(newOrder)
     }
 }

@@ -76,22 +76,23 @@ class GetAllNotesUseCaseTest {
     fun shouldOrderByColor() = runTest {
         val base = SampleNote.all[0]
         val createUseCase = CreateSingleNoteUseCase(noteStore)
-        createUseCase.execute(base.copy(color = null))
-        createUseCase.execute(base.copy(color = null))
-        createUseCase.execute(base.copy(color = null))
-        createUseCase.execute(base.copy(color = 1))
-        createUseCase.execute(base.copy(color = 2))
-        createUseCase.execute(base.copy(color = 1))
-        createUseCase.execute(base.copy(color = 3))
-        createUseCase.execute(base.copy(color = 1))
-        createUseCase.execute(base.copy(color = 2))
+        createUseCase.execute(base.copy(color = 0u))
+        createUseCase.execute(base.copy(color = 0u))
+        createUseCase.execute(base.copy(color = 0u))
+        createUseCase.execute(base.copy(color = 1u))
+        createUseCase.execute(base.copy(color = 2u))
+        createUseCase.execute(base.copy(color = 1u))
+        createUseCase.execute(base.copy(color = 3u))
+        createUseCase.execute(base.copy(color = 1u))
+        createUseCase.execute(base.copy(color = 2u))
 
+        colorStore.saveOrder(listOf(2u, 3u, 1u, 0u))
         val getAllUseCas = GetAllNotesUseCase(noteStore)
         val howToSort = SortingNoteByColor(colorStore)
         val result = getAllUseCas.execute(howToSort)
 
         assertThat(result).hasSize(9)
         assertThat(result.map { it.color })
-            .isEqualTo(listOf(2, 2, 3, 1, 1, 1, null, null, null))
+            .isEqualTo(listOf<ULong>(2u, 2u, 3u, 1u, 1u, 1u, 0u, 0u, 0u))
     }
 }

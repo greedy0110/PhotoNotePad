@@ -10,7 +10,7 @@ object SampleNote {
             title = "very $seed note",
             content = "hello photo note pads $seed",
             date = LocalDate.of(2021, 12, 3),
-            color = null,
+            color = 0u,
             isPin = false,
             images = emptyList(),
             createdAt = 999 // this should be set by other layer.

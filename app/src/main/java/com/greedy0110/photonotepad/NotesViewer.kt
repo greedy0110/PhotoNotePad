@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.greedy0110.domain.Note
 import com.greedy0110.photonotepad.ui.theme.PhotoNotePadTheme
+import com.greedy0110.photonotepad.ui.theme.StickerColors
 import java.time.LocalDate
 
 @Composable
@@ -26,7 +27,7 @@ fun NotesViewer(modifier: Modifier = Modifier, notes: List<Note>) {
                 modifier = Modifier.padding(4.dp),
                 title = note.title,
                 content = note.content,
-                color = note.color?.let { Color(it) } ?: Color.Red
+                color = Color(note.color)
             )
         }
     }
@@ -41,7 +42,7 @@ fun PreviewNotesViewer() {
             title = "very $seed note",
             content = "hello photo note pads $seed",
             date = LocalDate.of(2021, 12, 3),
-            color = null,
+            color = StickerColors[seed % StickerColors.size].value,
             isPin = false,
             images = emptyList(),
             createdAt = seed.toLong()

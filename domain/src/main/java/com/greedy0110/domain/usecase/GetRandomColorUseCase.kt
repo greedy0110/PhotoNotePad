@@ -2,11 +2,11 @@ package com.greedy0110.domain.usecase
 
 import com.greedy0110.domain.ColorStore
 
-class GetColorOrderUseCase(
+class GetRandomColorUseCase(
     private val colorStore: ColorStore
 ) {
 
-    suspend fun execute(): List<ULong> {
-        return colorStore.getOrder()
+    suspend fun execute(): ULong {
+        return colorStore.getOrder().random()
     }
 }

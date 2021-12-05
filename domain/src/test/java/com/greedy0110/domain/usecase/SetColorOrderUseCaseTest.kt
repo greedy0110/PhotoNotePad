@@ -20,7 +20,7 @@ class SetColorOrderUseCaseTest {
 
     @Test
     fun shouldReplaceNewColorOrder() = runTest {
-        val newOrder = listOf(2, 3, 1)
+        val newOrder = listOf<ULong>(2u, 3u, 1u)
         val useCase = SetColorOrderUseCase(colorStore)
         useCase.execute(newOrder)
 
