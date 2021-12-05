@@ -9,7 +9,6 @@ object SampleNote {
             id = seed, // this should be set by other layer.
             title = "very $seed note",
             content = "hello photo note pads $seed",
-            //TODO: date could be null.
             date = LocalDate.of(2021, 12, 3),
             color = null,
             isPin = false,

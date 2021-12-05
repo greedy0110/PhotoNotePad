@@ -42,6 +42,7 @@ fun SingleNote(
             Text(
                 modifier = Modifier
                     .background(color.copy(alpha = 0.5f))
+                    .fillMaxWidth()
                     .padding(8.dp),
                 overflow = TextOverflow.Ellipsis,
                 text = content
