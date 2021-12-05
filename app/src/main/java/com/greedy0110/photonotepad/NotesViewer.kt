@@ -15,6 +15,7 @@ import java.time.LocalDate
 
 @Composable
 fun NotesViewer(modifier: Modifier = Modifier, notes: List<Note>) {
+    //TODO: scroll to the top when a new item gets added.
     //TODO: how can I make this list a grid view?
     LazyColumn(
         modifier = modifier,

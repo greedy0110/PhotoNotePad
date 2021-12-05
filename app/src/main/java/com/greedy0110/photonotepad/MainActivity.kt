@@ -3,36 +3,62 @@ package com.greedy0110.photonotepad
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.activity.viewModels
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.greedy0110.domain.Note
 import com.greedy0110.photonotepad.ui.theme.PhotoNotePadTheme
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class MainActivity : ComponentActivity() {
+
+    private val mainViewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             PhotoNotePadTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+                MainScreen(
+                    mainViewModel::addRandomNote,
+                    mainViewModel.notes
+                )
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun MainScreen(
+    onFloatingButtonClick: () -> Unit,
+    notes: StateFlow<List<Note>>
+) {
+    val notesState by notes.collectAsState()
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = { onFloatingButtonClick() }) {
+                Icon(Icons.Filled.Add, null)
+            }
+        }
+    ) {
+        NotesViewer(notes = notesState)
+    }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun DefaultPreview() {
+fun PreviewMainScreen() {
     PhotoNotePadTheme {
-        Greeting("Android")
+        MainScreen(
+            {},
+            MutableStateFlow(emptyList())
+        )
     }
 }
